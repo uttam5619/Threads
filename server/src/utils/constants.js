@@ -1,0 +1,1 @@
+export const profile_logo='https://th.bing.com/th/id/OIP.iMscIl4tOyrVzOx3oV9NfgHaHa?rs=1&pid=ImgDetMain'

@@ -16,7 +16,7 @@ const userSchema = new Schema({
         trim: true,
         required:[true, 'name is requiered'],
         lowercase: true,
-        type:unique,
+        unique:true,
         minLength: [3, 'the name should contain atleast 3 characters'],
         maxLength: [60, 'the name should not contain more than 60 characters'],
     },
@@ -64,12 +64,12 @@ const userSchema = new Schema({
 
 userSchema.pre('save', async function(next){
     if(!this.isModified('password')) return next()
-    this.password = await bcrypt(this.password,10)
+    this.password = await bcrypt.hash(this.password,10)
     next()
 })
 
 userSchema.methods ={
-    generateToken:async function(){
+    generateAccessToken:async function(){
         return await jwt.sign(
             {id:this._id, username:this.username, email:this.email},
             process.env.ACCESS_TOEKN_SECRET,
@@ -80,3 +80,6 @@ userSchema.methods ={
         return await bcrypt.compare(password,this.password)
     }
 }
+
+const User= model('User', userSchema)
+export default User
