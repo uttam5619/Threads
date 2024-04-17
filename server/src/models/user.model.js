@@ -71,7 +71,7 @@ userSchema.pre('save', async function(next){
 userSchema.methods ={
     generateAccessToken:async function(){
         return await jwt.sign(
-            {id:this._id, username:this.username, email:this.email},
+            {_id:this._id, username:this.username, email:this.email},
             process.env.ACCESS_TOEKN_SECRET,
             {expiresIn:'5m'}
         )
