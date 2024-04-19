@@ -47,12 +47,12 @@ const userSchema = new Schema({
         }
     },
     followers:{
-        type:String,
-        default:0
+        type:[String],
+        default:[]
     },
     following:{
-        type:String,
-        default:0
+        type:[String],
+        default:[]
     },
     description:{
         type:String,
@@ -71,8 +71,8 @@ userSchema.pre('save', async function(next){
 userSchema.methods ={
     generateAccessToken:async function(){
         return await jwt.sign(
-            {_id:this._id, username:this.username, email:this.email},
-            process.env.ACCESS_TOEKN_SECRET,
+            {id:this._id, email:this.email },
+            process.env.ACCESS_TOKEN_SECRET,
             {expiresIn:'8m'}
         )
     },

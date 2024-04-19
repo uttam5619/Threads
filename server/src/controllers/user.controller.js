@@ -77,9 +77,11 @@ const isFollowing = async(req, res)=>{
             //unfollowUser
             await User.findByIdAndUpdate(req.user._id,{$pull:{following:id}})
             await User.findByIdAndUpdate(id, {$pull : {followers: req.user._id}})
+            res.status(200).json({success:true, message: 'unfollowed'})
         }else{
             //Follow user
             await User.findByIdAndUpdate(req.user._id, {$push: {following: id}})
+            res.status(200).json({success:true, message: 'following'})
         }
     }catch(err){
         res.status(500).json({success:false, errorMessage:err.message, data:err})

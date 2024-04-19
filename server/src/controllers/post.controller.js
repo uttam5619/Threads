@@ -2,7 +2,7 @@
 
 
 const uploadPost =async (req, res) =>{
-
+    
 }
 
 const updatePost = async (req, res) =>{
