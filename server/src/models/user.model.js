@@ -73,7 +73,7 @@ userSchema.methods ={
         return await jwt.sign(
             {id:this._id, email:this.email },
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:'8m'}
+            {expiresIn:'2h'}
         )
     },
     comparePassword: async function(password){

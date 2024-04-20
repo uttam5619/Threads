@@ -3,7 +3,7 @@ import {Schema, model} from 'mongoose'
 const postSchema = new Schema({
     postedBy:{
         type: Schema.Types.ObjectId,
-        ref: User,
+        ref: 'User',
         required: true
     },
     text:{
@@ -16,8 +16,10 @@ const postSchema = new Schema({
         type: String, //cloudinary url
     },
     likes:{
-        type: Number,
-        default:0
+        //likes should be an array of userId(s)
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        default: []
     },
     replies: [
         {

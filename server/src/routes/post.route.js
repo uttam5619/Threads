@@ -1,12 +1,15 @@
 import express from 'express'
 import { deletePost, getAllPost, getPost, updatePost, uploadPost } from '../controllers/post.controller.js'
-const postRoute = express.Router()
+import isLoggedIn from '../middleware/isLoggedIn.middleware.js'
 
-postRoute.post('/upload',uploadPost )
-postRoute.put('/:id', updatePost )
-postRoute.delete('/:id', deletePost )
-postRoute.get('/:id', getPost )
-postRoute.get('/:id', getAllPost )
+const postRoute= express.Router()
 
+postRoute.post('/', isLoggedIn, uploadPost)
+postRoute.get('/', getAllPost)
+
+postRoute.delete('/:id', deletePost)
+postRoute.put('/:id', updatePost)
+postRoute.get('/:id', getPost)
+postRoute.post('/:id',)
 
 export default postRoute
