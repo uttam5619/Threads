@@ -3,14 +3,19 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import UserPage from './pages/UserPage'
 import PostPage from './pages/PostPage'
+import BrowsePage from './pages/BrowsePage'
 
 function App() {
   
   const appRoute = createBrowserRouter([
     {
       path: '/',
-      element:<LandingPage/>,
+      element:<BrowsePage/>,
       children:[
+        {
+          path: '/',
+          element: <LandingPage/>,
+        },
         {
           path: '/user',
           element: <UserPage/>,
