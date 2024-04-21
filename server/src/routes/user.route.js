@@ -3,10 +3,10 @@ import { deleteUser, getAllUsers, getUser, isFollowing, updateUser } from '../co
 import isLoggedIn from '../middleware/isLoggedIn.middleware.js';
 const userRoute = express.Router()
 
-userRoute.put('/update/:id',updateUser)
-userRoute.delete('/delete/:id', deleteUser)
-userRoute.get('/:id',getUser)
-userRoute.get('/',getAllUsers)
+userRoute.put('/update/:id',isLoggedIn, updateUser)
+userRoute.delete('/delete/:id',isLoggedIn, deleteUser)
+userRoute.get('/:id',isLoggedIn, getUser)
+userRoute.get('/',isLoggedIn, getAllUsers)
 userRoute.post('/follow/:id',isLoggedIn, isFollowing)
 
 

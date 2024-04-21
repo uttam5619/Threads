@@ -121,10 +121,53 @@ const likeUnlikePost = async (req, res) =>{
     }
 }
 
+const reply =async (req, res) => {
+    try{
+        const { text }= req.body
+        const postId= req.params.id
+        const userId=req.user._id
+        const userProfilePic= req.user.avatar.secure_url
+        const username= req.user.username
+
+        if(!text){
+            return res.status(400).json({success:false,message:'text field is required'})
+        }
+        const post= await Post.findById(postId)
+        if(!post){
+            return res.status(404).json({success:false,message:'post not found'})
+        }
+
+        const reply ={userId, text, username, userProfilePic}
+        post.replies.push(reply)
+        await post.save()
+        return res.status(200).json({success:true,message:'reply added successfully'})
+    }catch(err){
+        console.log(err.message, err)
+    }
+}
+
+const getFeeds =async (req, res) =>{
+    try{
+        const userId= req.user._id
+        const user = await User.findById(userId)
+        if(!user){
+            return res.status(404).json({success:false, message:'user not found'})
+        }
+        const following = user.following
+        const feedPosts= await Post.findById({postedBy:{$in:following}}).sort({createdAt:-1})
+        return res.status(200).json({success:true, data: feedPosts})
+    }catch(err){
+        console.log(err.message, err)
+    }
+}
+
 export {
     uploadPost,
     updatePost,
     deletePost,
     getPost,
-    getAllPost
+    getAllPost,
+    likeUnlikePost,
+    reply,
+    getFeeds
 }
