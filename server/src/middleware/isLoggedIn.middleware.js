@@ -14,7 +14,7 @@ const isLoggedIn =async(req, res, next)=>{
         if(!user){
             return res.status(503).json({success:false, message:'failed to fetch userdetails from database'})
         }
-        req.user = user
+        req.user = user 
         next()
     }catch(err){
         console.log(err.message,err)

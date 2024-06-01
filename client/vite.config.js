@@ -9,4 +9,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server:{
+    // get rid of the CORS error
+    proxy:{
+      '/api': {
+        target: 'http://localhost:6050',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
 })

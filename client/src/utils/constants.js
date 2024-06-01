@@ -1,0 +1,1 @@
+export const landingPageBG = 'https://th.bing.com/th/id/R.d02690553b837404766de2a75f0c8d98?rik=a33Cf%2bNB%2b%2bl3Sg&pid=ImgRaw&r=0'

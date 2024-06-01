@@ -86,7 +86,7 @@ const getPost = async (req, res) =>{
 
 const getAllPost = async (req, res) =>{
     try{
-        const posts= await Post.find({})
+        const posts= await Post.find({}).populate('postedBy')
         if(!posts){
             return res.status(404).json({success:false,message:'posts not found'})
         }

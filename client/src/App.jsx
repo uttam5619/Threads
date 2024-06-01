@@ -4,20 +4,25 @@ import LandingPage from './pages/LandingPage'
 import UserPage from './pages/UserPage'
 import PostPage from './pages/PostPage'
 import BrowsePage from './pages/BrowsePage'
+import HomePage from './pages/HomePage'
 
 function App() {
   
   const appRoute = createBrowserRouter([
+    {
+      path: '/auth',
+      element: <LandingPage />
+    },
     {
       path: '/',
       element:<BrowsePage/>,
       children:[
         {
           path: '/',
-          element: <LandingPage/>,
+          element: <HomePage />,
         },
         {
-          path: '/user',
+          path: '/profile/:id',
           element: <UserPage/>,
         },
         {
