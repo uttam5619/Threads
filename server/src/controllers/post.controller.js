@@ -24,6 +24,19 @@ const uploadPost =async (req, res) =>{
         if(!post){
             return res.status(500).json({success:false,message:'failed to create the post'})
         }
+        
+        if(req.file){
+            console.log(`file details:${JSON.stringify(req.file)}`)
+            const result = cloudinary.uploader.upload(req.file.path, {
+                folder: 'Threads',
+                crop: 'fill'
+            })
+            if(!result){
+                return res.status(400).json({success:false,message:'failed to upload on cloudinary'})
+            }
+            post.image.secure_url=result.secure_url
+            post.image.public_id=result.public_id
+        }
         await post.save()
         return res.status(201).json({success:true, message:'post created successfully',data:post})
 

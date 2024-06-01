@@ -1,7 +1,7 @@
 import multer from 'multer'
 import path from 'path'
 
-const upload = multer({
+const uploadAvatar = multer({
     dest:'uploads/',
     limits:{fileSize: 50*1024*1024},
 
@@ -28,4 +28,4 @@ const upload = multer({
 })
 
 
-export default upload
+export default uploadAvatar

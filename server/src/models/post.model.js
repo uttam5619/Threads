@@ -13,7 +13,12 @@ const postSchema = new Schema({
         maxLength: [500, 'post can not be greater than 500 characters']
     },
     image:{
-        type: String, //cloudinary url
+        secure_url: {
+            type: String,
+        },
+        public_id: {
+            type: String,
+        }
     },
     likes:{
         //likes should be an array of userId(s)

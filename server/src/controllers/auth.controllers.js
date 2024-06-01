@@ -1,5 +1,8 @@
 import User from "../models/user.model.js"
 import { profile_logo } from "../utils/constants.js"
+import cloudinary from 'cloudinary'
+import fs from 'fs/promises'
+
 
 const cookieOptions={
     httpOnly: true,
@@ -32,6 +35,30 @@ const signUp =async(req, res)=>{
     if(!registeredUser){
         return res.status(500).json({success: false, message:'failed to register the user'})
     }
+
+    if(req.file){
+        console.log('file details',JSON.stringify(req.file))
+        try{
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'Threads',
+                width:250,
+                height: 250,
+                gravity: 'faces',
+                crop: 'fill'
+            })
+            if(result){
+                console.log(result)
+                console.log(result.secure_url)
+                registeredUser.avatar.public_id = result.public_id
+                registeredUser.avatar.secure_url = result.secure_url
+                //remove file from server
+                fs.rm (`uploads/${req.file.filename}`)
+            }
+        }catch(err){
+            return res.status(400).json({success:false, message:err.message})
+        }
+    }
+
     await registeredUser.save()
     const token = await registeredUser.generateAccessToken()
     res.cookie('token', token, cookieOptions)
