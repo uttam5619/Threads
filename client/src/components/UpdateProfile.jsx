@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,20 @@ import { Form } from "react-router-dom";
 
 
 const UpdateProfile = () => {
+
+  const [userData, setUserData] = useState({name:'', username:''})
+
+  const handleUserData =(property,e) => {
+    setUserData({
+      ...userData, property: e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('form submit')
+  }
+
   return (
     <div>
       <Dialog>
@@ -22,11 +36,19 @@ const UpdateProfile = () => {
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-
+              make the changes to update the profile
                 <Form>
-                    <input className="w-80 p-3 outline-none border" placeholder="name"></input>
+                    <input className="w-80 mt-5 p-3 outline-none border" placeholder="name"
+                      value={userData.name} onChange={(e)=>handleUserData(name,e)}>
+                    </input>
+                    <input className="w-80 mt-2 p-3 outline-none border" placeholder="usename"
+                      value={userData.username} onChange={(e)=>handleUserData(username,e)}>
+                    </input>
+                    <section className="flex gap-x-5 mt-2 p-3">
+                      <div>avatar:</div>
+                      <input className="outline-none" type="file"></input>
+                    </section>
+                    <button className="bg-gray-400" onClick={()=>console.log('hello')}>Submit</button>
                 </Form>
 
             </DialogDescription>
